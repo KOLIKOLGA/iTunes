@@ -1,14 +1,14 @@
 export const videoPlayerInit = () => {
-  // video-player, video-button__play, video-button__stop,
-  //video-time__passed
-  // video-progress, video-time__total
-
   const videoPlayer = document.querySelector(".video-player");
   const videoButtonPlay = document.querySelector(".video-button__play");
   const videoButtonStop = document.querySelector(".video-button__stop");
   const videoProgress = document.querySelector(".video-progress");
   const videoTimePassed = document.querySelector(".video-time__passed");
   const videoTimeTotal = document.querySelector(".video-time__total");
+  const videoVolume = document.querySelector(".video-volume");
+  const faVolumeOff = document.querySelector(".fa-volume-off");
+  const faVolumeDown = document.querySelector(".fa-volume-down");
+  const faVolumeUp = document.querySelector(".fa-volume-up");
 
   const toggleIcon = () => {
     if (videoPlayer.paused) {
@@ -35,6 +35,11 @@ export const videoPlayerInit = () => {
   const addZero = (n) => {
     return n < 10 ? "0" + n : n;
   }; // добавляет ноль если нет единиц
+
+  const changeVolume = () => {
+    let volumeVideo = videoVolume.value;
+    videoPlayer.volume = volumeVideo / 100;
+  };
   videoPlayer.addEventListener("click", togglePlay);
   videoButtonPlay.addEventListener("click", togglePlay);
   videoPlayer.addEventListener("play", toggleIcon);
@@ -65,5 +70,22 @@ export const videoPlayerInit = () => {
     const value = videoProgress.value;
 
     videoPlayer.currentTime = (value * duration) / 100; // можно переместить ползунок видео
+  });
+  videoVolume.addEventListener("input", changeVolume);
+  changeVolume(); // взываем что б сохранить введеное значение
+
+  faVolumeOff.addEventListener("click", () => {
+    if (videoPlayer.muted === true) {
+      videoPlayer.muted = false;
+    } else if (videoPlayer.muted === false) {
+      videoPlayer.muted = true;
+    }
+  });
+
+  faVolumeDown.addEventListener("click", () => {
+    videoPlayer.volume = videoVolume.value / 100;
+  });
+  faVolumeUp.addEventListener("click", () => {
+    videoPlayer.volume = videoVolume.value / 100;
   });
 };
