@@ -74,6 +74,7 @@ export const videoPlayerInit = () => {
   videoVolume.addEventListener("input", changeVolume);
   changeVolume(); // взываем что б сохранить введеное значение
 
+  videoPlayer.muted = false;
   faVolumeOff.addEventListener("click", () => {
     if (videoPlayer.muted === true) {
       videoPlayer.muted = false;
