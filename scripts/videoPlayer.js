@@ -9,6 +9,7 @@ export const videoPlayerInit = () => {
   const faVolumeOff = document.querySelector(".fa-volume-off");
   const faVolumeDown = document.querySelector(".fa-volume-down");
   const faVolumeUp = document.querySelector(".fa-volume-up");
+  const videoFullscreen = document.querySelector(".video-fullscreen");
 
   const toggleIcon = () => {
     if (videoPlayer.paused) {
@@ -19,7 +20,8 @@ export const videoPlayerInit = () => {
       videoButtonPlay.classList.remove("fa-play");
     }
   };
-  const togglePlay = () => {
+  const togglePlay = (event) => {
+    event.preventDefault();
     if (videoPlayer.paused) {
       videoPlayer.play();
     } else {
@@ -27,7 +29,7 @@ export const videoPlayerInit = () => {
     }
 
     toggleIcon();
-  };
+  }; // кликаем по кадру и пауза воспроизведение останавливается
   const stopPlay = () => {
     videoPlayer.pause();
     videoPlayer.currentTime = 0;
@@ -82,11 +84,17 @@ export const videoPlayerInit = () => {
       videoPlayer.muted = true;
     }
   });
+  videoPlayer.addEventListener("volumechange", (event) => {
+    videoVolume.value = Math.round(videoPlayer.volume * 100);
+  });
 
   faVolumeDown.addEventListener("click", () => {
-    videoPlayer.volume = videoVolume.value / 100;
+    videoPlayer.volume = videoVolume.value / 100 - 0.1;
   });
   faVolumeUp.addEventListener("click", () => {
-    videoPlayer.volume = videoVolume.value / 100;
+    videoPlayer.volume = videoVolume.value / 100 + 0.1;
+  });
+  videoFullscreen.addEventListener("click", () => {
+    videoPlayer.requestFullscreen();
   });
 };
