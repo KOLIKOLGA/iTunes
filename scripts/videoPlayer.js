@@ -58,7 +58,7 @@ export const videoPlayerInit = () => {
     let secondePassed = Math.floor(currentTime % 60); // сколько секурд просмотренно
 
     let minuteTotal = Math.floor(duration / 60); // сколько минут продолжительность записи
-    let secondeTotal = Math.floor(duration % 60); // сколько секунд к манутам
+    let secondeTotal = Math.floor(duration % 60); // сколько секунд к минутам
 
     videoTimePassed.textContent = `
     ${addZero(minutePassed)}:${addZero(secondePassed)}
